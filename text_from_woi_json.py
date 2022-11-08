@@ -9,10 +9,10 @@ PROGRAME TYPE: PURE, UTF8 JSON → UTF8
 IO DATA TYPES:
    • STDARG UTF8 JSON: WOI (Word Order Illustrator) export JSON file.
       Sample:
-         {"sentences":[["en",["It"," is"," so","."]],["fr",["C'","est"," ainsi","."]]],"equivalency":[[[0],[0]],[[1,2],[1]],[[],[2]],[[],[]]]}
+         {"sentences":[["en",["It"," is"," so","."]],["fr",["C'","est"," ainsi","."]]],"equivalency":[[[0],[0]],[[1],[1]],[[2],[2]],[[],[]]]}
    • STDOUT UTF8: Pipe-separated list of subscripted texts in different languages.
       Sample:
-         en|It₁ is₂ so₂.‖fr|C'₁est₂ ainsi₃.
+         en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃.
 
 PURPOSE:
    Mkpoli's “Word Order Illustrator” (https://word-order.mkpo.li/ | https://github.com/mkpoli/word-order/), henceforth referred to as “WOI”, is a tool for creating charts comparing morpheme orders between sentences of same meaning but in different languages.
@@ -22,13 +22,13 @@ PURPOSE:
    See the ⟪IO DATA TYPE⟫ section above for an example of well-formed output string.
 
 USAGE EXAMPLES (WITH LINUX BASH):
-   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₂.‖fr|C'₁est₂ ainsi₃."
+   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃."
    ※ ↑ The output JSON will be written to STDOUT.
    
-   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₂.‖fr|C'₁est₂ ainsi₃." > woi_json.json
+   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃." > woi_json.json
    ※ ↑ The output JSON will be written to a file named ⟪woi_json.json⟫.
    
-   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₂.‖fr|C'₁est₂ ainsi₃." | xsel -ib
+   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃." | xsel -ib
    ※ ↑ The output JSON will be written to the clipboard.
 """
 

@@ -9,10 +9,10 @@ PROGRAME TYPE: PURE, UTF8 → UTF8 JSON
 IO DATA TYPES:
    • STDARG UTF8: Pipe-separated list of subscripted texts in different languages.
       Sample:
-         en|It₁ is₂ so₂.‖fr|C'₁est₂ ainsi₃.
+         en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃.
    • STDOUT UTF8 JSON: WOI (Word Order Illustrator) export JSON file.
       Sample:
-         {"sentences":[["en",["It"," is"," so","."]],["fr",["C'","est"," ainsi","."]]],"equivalency":[[[0],[0]],[[1,2],[1]],[[],[2]],[[],[]]]}
+         {"sentences":[["en",["It"," is"," so","."]],["fr",["C'","est"," ainsi","."]]],"equivalency":[[[0],[0]],[[1],[1]],[[2],[2]],[[],[]]]}
 
 PURPOSE:
    Mkpoli's “Word Order Illustrator” (https://word-order.mkpo.li/ | https://github.com/mkpoli/word-order/), henceforth referred to as “WOI”, is a tool for creating charts comparing morpheme orders between sentences of same meaning but in different languages.
