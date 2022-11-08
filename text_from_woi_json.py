@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+# COPYRIGHT LICENSE: CC0 version 1.0. For reading a copy of this license, please see the file ⟪CC0 1.0 LICENSE.txt⟫ within the folder ⟪LICENSES⟫ in the top level directory.
+# SPDX-License-Identifier: CC0-1.0
+
 """
 PROGRAME TYPE: PURE, UTF8 JSON → UTF8
 
