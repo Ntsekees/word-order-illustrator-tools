@@ -22,14 +22,11 @@ PURPOSE:
    See the ⟪IO DATA TYPE⟫ section above for an example of well-formed output string.
 
 USAGE EXAMPLES (WITH LINUX BASH):
-   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃."
-   ※ ↑ The output JSON will be written to STDOUT.
+   ⎈ python3 text_from_woi_json.py "$(< woi_json.json)"
+   ※ ↑ The input JSON is first loaded from a file named ⟪woi_json.json⟫, then is passed as the STDARG input of the program.
    
-   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃." > woi_json.json
-   ※ ↑ The output JSON will be written to a file named ⟪woi_json.json⟫.
-   
-   ⎈ python3 woi_json_from_text.py "en|It₁ is₂ so₃.‖fr|C'₁est₂ ainsi₃." | xsel -ib
-   ※ ↑ The output JSON will be written to the clipboard.
+   ⎈ python3 text_from_woi_json.py "$(xsel -ob)"
+    ※ ↑ The input JSON is first loaded from the clipboard (provided you first copied it to the clipboard), then is passed as the STDARG input of the program.
 """
 
 import sys, os, json, re
