@@ -17,7 +17,7 @@ IO DATA TYPES:
 PURPOSE:
    Mkpoli's “Word Order Illustrator” (https://word-order.mkpo.li/ | https://github.com/mkpoli/word-order/), henceforth referred to as “WOI”, is a tool for creating charts comparing morpheme orders between sentences of same meaning but in different languages.
    Once a word order chart has been created, WOI allows exporting it in JSON format; it is also possible to import back such JSON export files.
-   The purpose of this Python program is to create a WOI JSON file out of a plain text input listing two or more sentences in different languages, with each language-sentence pairs being separated by a double pipe character ⟪‖⟫, with each double-pipe being immediately followed by the language's name or ISO code, then a simple pipe character ⟪|⟫ followed by the sentence associated with the language; the sentence may be split into several chunks, each being followed by an ID written in subscript digits ⟪₀₁₂₃₄₅₆₇₈₉⟫, or alternatively with ⟪ₓ⟫. 
+   The purpose of this Python program is to create a WOI JSON file out of a plain text input listing two or more sentences in different languages, with each language-sentence pairs being separated by a double pipe character ⟪‖⟫ (or alternatively, two consecutive simple pipes, i.e. ⟪||⟫), with each double-pipe being immediately followed by the language's name or ISO code, then a simple pipe character ⟪|⟫ followed by the sentence associated with the language; the sentence may be split into several chunks, each being followed by an ID written in subscript digits ⟪₀₁₂₃₄₅₆₇₈₉⟫, or alternatively with ⟪ₓ⟫. These IDs may also be written as normal digits in curly brackets, e.g. ⟪{3}⟫ instead of ⟪₃⟫; likewise, empty curly brackets ⟪{}⟫ may be used instead of ⟪ₓ⟫.
    When two chunks belonging to two different language-sentence pairs have the same ID, this means that they are homologous in role across the two sentences, and would be linked together and colored the same in the WOI interface. If the ID is ⟪ₓ⟫ however, this means the chunk has no correspondency in other languages. All chunks bearing the ⟪ₓ⟫ ID will be “ignored” with respect to cross-linking of same-purpose chunks between different language-sentence pairs.
    See the ⟪IO DATA TYPE⟫ section above for an example of well-formed input string.
 
@@ -34,10 +34,10 @@ import sys, os, json, re
 def entrypoint(self_path :str, text :str):
   assert(isinstance(text, str))
   data = []
+  text = with_ascii_compatibility_normalized(text)
   for e in text.split("‖"):
     r = e.split("|")
     data.append({"language": r[0], "text_chunks": parse(r[1])})
-  # save_as_json_file(woi_data_from(data), path)
   sys.stdout.write(json.dumps(
     woi_data_from(data),
     separators = (',', ':'),
@@ -45,6 +45,22 @@ def entrypoint(self_path :str, text :str):
     + '\n'
   )
   return
+
+def with_ascii_compatibility_normalized(s :str):
+  def f(s):
+    r = ""
+    for ch in s:
+      if ch in "{}":
+        r += ch
+      else:
+        r += "₀₁₂₃₄₅₆₇₈₉"[int(ch)]
+    return r
+  s = re.sub("\|\|", "‖", s)
+  s = re.sub("{}", "ₓ", s)
+  for m in re.finditer("{[0-9]+}", s):
+    s = s[:m.start()] + f(m.group(0)) + s[m.end():]
+  s = re.sub("{([₀₁₂₃₄₅₆₇₈₉]+)}", "\\1", s)
+  return s
 
 def parse(s :str):
   lst = re.split(r"([₀₁₂₃₄₅₆₇₈₉ₓ]+)", s)
